@@ -145,7 +145,7 @@ DATA_REPSENTATION_AND_TRANSFER
     movlw 'Z'
 
     ; positive value 
-    movlw 5
+    movlw  5
     movlw +5
 
     ; negative value (2's complement)
