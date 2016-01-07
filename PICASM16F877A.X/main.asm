@@ -73,6 +73,7 @@ __CONFIG _FOSC_XT & _WDTE_OFF & _PWRTE_OFF & _BOREN_OFF & _LVP_OFF & _CPD_OFF & 
 
 ; TODO PLACE VARIABLE DEFINITIONS GO HERE
 UDATA          0x20
+X              RES        1      ; general purpose variable
 W_TEMP         RES        1      ; w register for context saving (ACCESS)
 STATUS_TEMP    RES        1      ; status used for context saving
 BSR_TEMP       RES        1      ; bank select used for ISR context saving
@@ -114,7 +115,7 @@ RES_VECT  CODE    0x0000            ; processor reset vector
 
 MAIN_PROG CODE                      ; let linker place main program
 START
- 
+    
 ;-------------------------------------------------------------------------------
 
 DATA_REPSENTATION_AND_TRANSFER
@@ -707,6 +708,23 @@ B_GREATER
    
 ;-------------------------------------------------------------------------------
 
+COUNTER_LOOPS    
+; INCFZ & DECFZ does not affects status flags C, DC, Z 
+    
+    movlw .3 
+    movwf X
+COUNTDOWN
+    decfsz X  
+    goto COUNTDOWN
+
+    movlw .252
+    movwf X
+COUNTUP
+    incfsz X  
+    goto COUNTUP
+    
+;-------------------------------------------------------------------------------
+    
 SWAP
 
     movlw 0xAB
