@@ -696,7 +696,21 @@ B_GREATER
     retlw 2
    
 ;-------------------------------------------------------------------------------    
-   
+  
+   ; zero testing any file register location with 'movf X,f'
+
+    bcf STATUS, Z 
+
+    movlw 0
+    movwf X
+    movf  X,f
+
+    movlw 1
+    movwf X
+    movf  X,f
+    
+;-------------------------------------------------------------------------------    
+      
     ; reset flags C, DC, Z keep the rest
     bcf STATUS, C
     bcf STATUS, DC
